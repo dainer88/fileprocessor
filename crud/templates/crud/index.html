@@ -1,0 +1,162 @@
+{% load static %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/png" href="{% static 'crud/bootstrap/img/favicon.ico' %}">
+    <link href="{% static 'crud/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'crud/bootstrap/css/animate.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'crud/bootstrap/css/light-bootstrap-dashboard.css' %}" rel="stylesheet" />
+    <link href="{% static 'crud/bootstrap/css/demo.css' %}" rel="stylesheet" />
+    <link href="{% static 'crud/bootstrap/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+    <title>Dashboard</title>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="sidebar" data-color="purple" data-image="{% static 'crud/bootstrap/img/sidebar-5.jpg' %}">
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <h2 class="simple-text">Dashboard</h2>
+            </div>
+            <ul class="nav">
+                <li>
+                    <a href="{% url 'crud:index' %}">
+                        <i class="pe-7s-note2"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+			</ul>
+    	</div>
+    </div>
+
+    <div class="main-panel">
+
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="content">
+                                <form action="{% url 'crud:index' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" name="ch1" id="ch1" placeholder="CH 1" />
+                                    <input type="text" name="ch2" id="ch2" placeholder="CH 2" />
+                                    <input type="text" name="ch3" id="ch3" placeholder="CH 3" />
+                                    <input type="text" name="ch4" id="ch4" placeholder="CH 4" />
+                                    <input type="text" name="ch5" id="ch5" placeholder="CH 5" />
+                                    <input type="text" name="ch6" id="ch6" placeholder="CH 6" />
+                                    <input type="text" name="ch7" id="ch7" placeholder="CH 7" />
+                                    <input type="text" name="ch8" id="ch8" placeholder="CH 8" />
+                                    <input type="text" name="ch9" id="ch9" placeholder="CH 9" />
+                                    <input type="text" name="ch10" id="ch10" placeholder="CH 10" />
+                                    <input type="text" name="ch11" id="ch11" placeholder="CH 11" />
+                                    <input type="text" name="ch12" id="ch12" placeholder="CH 12" />
+                                    <input type="text" name="therm" id="therm" placeholder="Therm" />
+                                    <input type="text" name="temp" id="temp" placeholder="Temp" />
+                                    <input type="text" name="excv" id="excv" placeholder="Excv" />
+                                    <input type="text" name="batt" id="batt" placeholder="Batt" />
+                                    <input type="text" name="time" id="time" placeholder="Time" />
+                                    <input type="text" name="date" id="date" placeholder="Date" />
+                                    <input type="submit" class="btn" value="Add new" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="content">
+                                <a href="{% url 'crud:load' %}"><button type="button" class="btn">Load from file</button></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="content">
+                                {% if listOfMeasure %}
+                                    <ul>
+                                        {% for m in listOfMeasure %}
+                                            <li>
+                                                <a href="{% url 'crud:edit' m.get_id %}">
+                                                    <h5>{{ forloop.counter }} * {{ m.get_id }}</h5>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>No measure available</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+    <script src="{% static 'crud/bootstrap/js/jquery-1.10.2.js' %}" type="text/javascript"></script>
+	<script src="{% static 'crud/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+	<script src="{% static 'crud/bootstrap/js/bootstrap-checkbox-radio-switch.js' %}"></script>
+
+	<script src="{% static 'crud/bootstrap/js/chartist.min.js' %}"></script>
+
+    <script src="{% static 'crud/bootstrap/js/bootstrap-notify.js' %}"></script>
+
+    <script src="{% static 'crud/bootstrap/js/light-bootstrap-dashboard.js' %}"></script>
+
+	<script src="{% static 'crud/bootstrap/js/demo.js' %}"></script>
+
+	<script type="text/javascript">
+    	$(document).ready(function(){
+            {% if error_message %}
+                $.notify({
+            	    icon: 'pe-7s-bell',
+            	    message: "<b>Dashboard</b> - {{ error_message }}."
+
+                },{
+                    type: 'info',
+                    timer: 4000
+                });
+            {% else %}
+                $.notify({
+            	    icon: 'pe-7s-gift',
+            	    message: "Welcome to <b>Dashboard</b> - Showing the dashboard."
+
+                },{
+                    type: 'info',
+                    timer: 4000
+                });
+            {% endif %}
+    	});
+
+        function function01() {
+            $.notify({
+                icon: 'pe-7s-bell',
+                message: "hello."
+            }, {
+                type: 'info',
+                timer: 4000
+            });
+        }
+	</script>
+</html>

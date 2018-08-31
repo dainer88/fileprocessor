@@ -1,0 +1,67 @@
+{% if measure %}
+    <h1>{{ measure.get_id }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'crud:save' measure.get_id %}" method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="id" id="id" value="{{ measure.get_id }}" />
+
+        <input type="text" name="ch1" id="ch1" value="{{ measure.ch1 }}" />
+        <label for="ch1">CH 1</label><br />
+
+        <input type="text" name="ch2" id="ch2" value="{{ measure.ch2 }}" />
+        <label for="ch2">CH 2</label><br />
+
+        <input type="text" name="ch3" id="ch3" value="{{ measure.ch3 }}" />
+        <label for="ch3">CH 3</label><br />
+
+        <input type="text" name="ch4" id="ch4" value="{{ measure.ch4 }}" />
+        <label for="ch4">CH 4</label><br />
+
+        <input type="text" name="ch5" id="ch5" value="{{ measure.ch5 }}" />
+        <label for="ch5">CH 5</label><br />
+
+        <input type="text" name="ch6" id="ch6" value="{{ measure.ch6 }}" />
+        <label for="ch6">CH 6</label><br />
+
+        <input type="text" name="ch7" id="ch7" value="{{ measure.ch7 }}" />
+        <label for="ch7">CH 7</label><br />
+
+        <input type="text" name="ch8" id="ch8" value="{{ measure.ch8 }}" />
+        <label for="ch8">CH 8</label><br />
+
+        <input type="text" name="ch9" id="ch9" value="{{ measure.ch9 }}" />
+        <label for="ch9">CH 9</label><br />
+
+        <input type="text" name="ch10" id="ch10" value="{{ measure.ch10 }}" />
+        <label for="ch10">CH 10</label><br />
+
+        <input type="text" name="ch11" id="ch11" value="{{ measure.ch11 }}" />
+        <label for="ch11">CH 11</label><br />
+
+        <input type="text" name="ch12" id="ch12" value="{{ measure.ch12 }}" />
+        <label for="ch12">CH 12</label><br />
+
+        <input type="text" name="therm" id="therm" value="{{ measure.therm }}" />
+        <label for="therm">Therm</label><br />
+
+        <input type="text" name="temp" id="temp" value="{{ measure.temp }}" />
+        <label for="temp">Temp</label><br />
+
+        <input type="text" name="excv" id="excv" value="{{ measure.excv }}" />
+        <label for="excv">Excv</label><br />
+
+        <input type="text" name="batt" id="batt" value="{{ measure.batt }}" />
+        <label for="batt">Batt</label><br />
+
+        <input type="text" name="time" id="time" value="{{ measure.time }}" />
+        <label for="time">Time</label><br />
+
+        <input type="text" name="date" id="date" value="{{ measure.date }}" />
+        <label for="date">Date</label><br />
+
+        <input type="submit" value="Save" />
+    </form>
+{% else %}
+    Does not exist
+{% endif %}
