@@ -8,6 +8,7 @@ from django.template import loader
 from django.shortcuts import render
 from django.urls import reverse
 from mongoengine import *
+from djangoMongoDB.settings import FILE_LOAD_DIR
 
 # Create your views here.
 
@@ -102,7 +103,7 @@ def savemeasure(request, measure_id):
 
 def load(request):
     import os
-    fh = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'crud\L4286F08.txt'), "r")
+    fh = open(os.path.join(FILE_LOAD_DIR, 'L4286F08.txt'), "r")
     fh.readline()
     p = fh.readline()
     while p != '':

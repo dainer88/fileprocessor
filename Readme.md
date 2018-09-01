@@ -35,4 +35,4 @@ Implementado del todo el look and feel deseado.
 
 Implementado el filtrado por rango de tiempo.
 
-Funcionamiento específicamente para el archivo provisto que debe estar en el directorio /crud (al nivel de views.py).
+Funcionamiento específicamente para el archivo provisto que debe estar en el directorio /crud (al nivel de views.py). Esto se puede variar editando la variable FILE_LOAD_DIR en el archivo /djangoMongoDB/settings.py.
