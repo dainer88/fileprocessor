@@ -7,6 +7,7 @@ from models import Measure
 from django.template import loader
 from django.shortcuts import render
 from django.urls import reverse
+from mongoengine import *
 
 # Create your views here.
 
@@ -54,8 +55,49 @@ def edit(request, measure_id):
     return render(request, 'crud/edit.html', context)
 
 
-def save(request, measure_id):
-    return
+def savemeasure(request, measure_id):
+    from pymongo import MongoClient
+    from bson import ObjectId
+    client = MongoClient('mongodb://127.0.0.1', 27017)
+    db = client.crud
+    col = db.measure
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch1': request.POST['ch1']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch2': request.POST['ch2']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch3': request.POST['ch3']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch4': request.POST['ch4']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch5': request.POST['ch5']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch6': request.POST['ch6']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch7': request.POST['ch7']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch8': request.POST['ch8']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch9': request.POST['ch9']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch10': request.POST['ch10']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch11': request.POST['ch11']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'ch12': request.POST['ch12']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'therm': request.POST['therm']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'temp': request.POST['temp']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'excv': request.POST['excv']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'batt': request.POST['batt']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'time': request.POST['time']}})
+    col.update_one({"_id": ObjectId(str(measure_id))},
+                   {'$set': {'date': request.POST['date']}})
+    return HttpResponseRedirect(reverse('crud:index'))
 
 
 def load(request):
@@ -88,3 +130,41 @@ def load(request):
         measure.save()
         p = fh.readline()
     return HttpResponseRedirect(reverse('crud:index'))
+
+
+def deletemeasure(request, measure_id):
+    from pymongo import MongoClient
+    from bson import ObjectId
+    client = MongoClient('mongodb://127.0.0.1', 27017)
+    db = client.crud
+    col = db.measure
+    col.delete_one({"_id": ObjectId(str(measure_id))})
+    return HttpResponseRedirect(reverse('crud:index'))
+
+
+def selectbydateandtime(request):
+    listOfMeasure = []
+    if request.method == 'POST':
+        import datetime
+        import time
+        p = request.POST['date1'].split('/')
+        date1 = datetime.date(int(p[2]), int(p[1]), int(p[0]))
+        p = request.POST['time1'].split(':')
+        time1 = datetime.time(int(p[0]), int(p[1]), int(p[2]))
+        p = request.POST['date2'].split('/')
+        date2 = datetime.date(int(p[2]), int(p[1]), int(p[0]))
+        p = request.POST['time2'].split(':')
+        time2 = datetime.time(int(p[0]), int(p[1]), int(p[2]))
+        listOfMeasure3 = Measure.objects
+        for measure in listOfMeasure3:
+            p = str(measure.date).split('/')
+            datecmp = datetime.date(int(p[2]), int(p[1]), int(p[0]))
+            p = str(measure.time).split(':')
+            timecmp = datetime.time(int(p[0]), int(p[1]), int(p[2]))
+            if date1 <= datecmp <= date2:
+                if time1 <= timecmp <= time2:
+                    listOfMeasure.append(measure)
+    context = {
+        'listOfMeasure': listOfMeasure,
+    }
+    return render(request, 'crud/selectivedashboard.html', context)

@@ -27,10 +27,12 @@ http://localhost:8000/crud
 
 ## Notas.
 
-Subiendo algún progreso por ahora.
+Proyecto terminado.
 
-Aun no implementeadas algunas funciones CRUD.
+Implementeadas funciones CRUD.
 
-Aun no implementado del todo el look and feel deseado.
+Implementado del todo el look and feel deseado.
 
-Funcionamiento específicamente para el archivo provisto.
+Implementado el filtrado por rango de tiempo.
+
+Funcionamiento específicamente para el archivo provisto que debe estar en el directorio /crud (al nivel de views.py).

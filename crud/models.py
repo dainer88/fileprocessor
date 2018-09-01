@@ -12,7 +12,7 @@ connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 
 class Measure(Document):
-    _id = StringField()
+    _id = ObjectIdField()
     ch1 = StringField(required=True)
     ch2 = StringField(required=True)
     ch3 = StringField(required=True)
